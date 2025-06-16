@@ -1,69 +1,75 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    header("Location: ../login.php");
-    exit();
-}
 require '../db.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $imie = $_POST['imie'];
+    $nazwisko = $_POST['nazwisko'];
+    $email = $_POST['email'];
+    $telefon = $_POST['telefon'];
+    $rola = $_POST['rola'];
+    $data_zatrudnienia = $_POST['data_zatrudnienia'];
+    $login = $_POST['login'];
+    $haslo = password_hash($_POST['haslo'], PASSWORD_DEFAULT);
+    $placa = $_POST['placa'];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $imie = mysqli_real_escape_string($db, $_POST['imie']);
-    $nazwisko = mysqli_real_escape_string($db, $_POST['nazwisko']);
-    $email = mysqli_real_escape_string($db, $_POST['email']);
-    $login = mysqli_real_escape_string($db, $_POST['login']);
-    $password = mysqli_real_escape_string($db, $_POST['haslo']);
+    $sql = "INSERT INTO pracownik (imie, nazwisko, email, telefon, rola, data_zatrudnienia, login, haslo, placa) VALUES ('$imie', '$nazwisko', '$email', '$telefon', '$rola', '$data_zatrudnienia', '$login', '$haslo', '$placa')";
 
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $sql = "INSERT INTO uzytkownik (imie, nazwisko, email, login, haslo) VALUES ('$imie', '$nazwisko', '$email', '$login', '$hashed_password')";
-    mysqli_query($db, $sql);
+    if (mysqli_query($db, $sql)) {
+        echo "Nowy pracownik został dodany pomyślnie.";
+    } else {
+        echo "Błąd: " . mysqli_error($db);
+    }
 
     mysqli_close($db);
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pl">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dodaj użytkownika</title>
-    <link rel="stylesheet" href="../style/adminstyl.css">
+    <title>Dodaj pracownika</title>
 </head>
 
 <body>
-    <header>
-        <a href="../index.php">
-            <h1 class="noMargin">Sklep ogrodniczy</h1>
-        </a>
-        <div class="buttonContainer">
-            <a href="../admin/adminPanel.php">
-                <button class="iconButton">
-                    <img src="../icons/close.svg" alt="Index" style="width:48px; height:48px; vertical-align:middle;">
-                </button>
-            </a>
-        </div>
-    </header>
-    <main>
-        <div class="center">
-            <div class="adminForm">
-                <h2 class="noMargin">Dodaj nowego użytkownika</h2>
-                <form action="#" method="POST">
-                    <input type="text" name="imie" placeholder="Imie" required>
-                    <input type="text" name="nazwisko" placeholder="Nazwisko" required>
-                    <input type="email" name="email" placeholder="Email" required>
-                    <input type="text" name="login" placeholder="Login" required>
-                    <input type="password" name="haslo" placeholder="Hasło" required>
-                    <button type="submit">Dodaj użytkownika</button>
-                </form>
-            </div>
-        </div>
-    </main>
-    <footer>
-        Autorzy: <b>Ryszard Osiński</b>, <b>Mirosław Karpowicz</b>, <b>Szymon Linek</b>, <b>Krystian Kotowski</b>
-    </footer>
+    <h1>Dodaj nowego pracownika</h1>
+    <p>Wypełnij poniższy formularz, aby dodać nowego pracownika.</p>
+    <p>Uwaga: Pamiętaj, aby hasło było silne i zawierało co najmniej 8 znaków, w tym wielkie litery, małe litery, cyfry i znaki specjalne.</p>
+    <p>Wszystkie pola są wymagane.</p>
+
+    <form action="addUser.php" method="post">
+        <label for="imie">Imię:</label>
+        <input type="text" id="imie" name="imie" required>
+        <br>
+        <label for="nazwisko">Nazwisko:</label>
+        <input type="text" id="nazwisko" name="nazwisko" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="telefon">Telefon:</label>
+        <input type="tel" id="telefon" name="telefon" required>
+        <br>
+        <label for="rola">Rola:</label>
+        <select id="rola" name="rola" required>
+            <option value="admin">Admin</option>
+            <option value="pracownik">Pracownik</option>
+        </select>
+        <br>
+        <label for="data_zatrudnienia">Data zatrudnienia:</label>
+        <input type="date" id="data_zatrudnienia" name="data_zatrudnienia" required>
+        <br>
+        <label for="login">Login:</label>
+        <input type="text" id="login" name="login" required>
+        <br>
+        <label for="haslo">Hasło:</label>
+        <input type="password" id="haslo" name="haslo" required>
+        <br>
+        <label for="placa">Płaca:</label>
+        <input type="number" id="placa" name="placa" required>
+        <br>
+        <button type="submit">Dodaj pracownika</button>
 </body>
 
 </html>
