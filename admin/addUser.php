@@ -1,3 +1,28 @@
+<?php
+require '../db.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $imie = $_POST['imie'];
+    $nazwisko = $_POST['nazwisko'];
+    $email = $_POST['email'];
+    $telefon = $_POST['telefon'];
+    $rola = $_POST['rola'];
+    $data_zatrudnienia = $_POST['data_zatrudnienia'];
+    $login = $_POST['login'];
+    $haslo = password_hash($_POST['haslo'], PASSWORD_DEFAULT);
+    $placa = $_POST['placa'];
+
+    $sql = "INSERT INTO pracownik (imie, nazwisko, email, telefon, rola, data_zatrudnienia, login, haslo, placa) VALUES ('$imie', '$nazwisko', '$email', '$telefon', '$rola', '$data_zatrudnienia', '$login', '$haslo', '$placa')";
+
+
+    if (mysqli_query($db, $sql)) {
+        echo "Nowy pracownik został dodany pomyślnie.";
+    } else {
+        echo "Błąd: " . mysqli_error($db);
+    }
+
+    mysqli_close($db);
+}
+?>
 <!DOCTYPE html>
 <html lang="pl">
 
