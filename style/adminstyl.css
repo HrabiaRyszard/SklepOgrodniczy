@@ -102,6 +102,13 @@ main{
 .iconButton:focus {
     outline: none;
 }
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
 .adminForm{
     background-color: white;
     width: 300px;
@@ -115,13 +122,6 @@ main{
     margin-top: 20px;
     border-radius: 20px;
     border: 4px solid black;
-}
-.center{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 70vh;
 }
 .adminForm input{
     width: 250px;
