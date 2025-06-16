@@ -45,45 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sklep Ogrodniczy</title>
     <link rel="stylesheet" href="../style/adminstyl.css">
-    <style>
-        .userForm{
-    background-color: white;
-    width: 300px;
-    min-height: 35vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    line-height: 1.75;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 20px;
-    border: 4px solid black;
-}
-.userForm input{
-    width: 250px;
-    height: 23px;
-    font-weight: bolder;
-    color: black;
-    border: 2px solid black;
-}
-.userForm button{
-    background-color: orangered;
-    width: 258px;
-    height: 29px;
-    font-weight: bolder;
-    color: black;
-    border: 2px solid black;
-}
-.userForm h2{
-    font-size: xx-large;
-    font-family:Verdana;
-    margin: 0;
-}
-.userForm form{
-    margin: 30px;
-}
-    </style>
 </head>
 
 <body>
@@ -94,14 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="buttonContainer">
             <a href="../admin/adminPanel.php">
                 <button class="iconButton">
-                    <img src="../icons/close.svg" alt="Index" style="width:48px; height:48px; vertical-align:middle;">
+                    <img src="../icons/back.svg" alt="Index" style="width:48px; height:48px; vertical-align:middle;">
                 </button>
             </a>
         </div>
     </header>
     <main>
         <div class="center">
-            <form method="post" class="userForm">
+            <form method="post" class="adminForm">
                 <h1 class="noMargin">Modyfikuj użytkownika</h1>
                 <label>Imie<br>
                     <input type="text" name="imie" value="<?php echo $user['imie']; ?>" required>

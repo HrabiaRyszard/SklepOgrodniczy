@@ -57,7 +57,7 @@ $images = glob('../images/*.jpg');
         <div class="buttonContainer">
             <a href="../admin/adminPanel.php">
                 <button class="iconButton">
-                    <img src="../icons/close.svg" alt="Index" style="width:48px; height:48px; vertical-align:middle;">
+                    <img src="../icons/back.svg" alt="Index" style="width:48px; height:48px; vertical-align:middle;">
                 </button>
             </a>
         </div>

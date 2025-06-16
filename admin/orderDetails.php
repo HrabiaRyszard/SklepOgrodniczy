@@ -1,0 +1,98 @@
+<?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../login.php");
+    exit();
+}
+require '../db.php';
+if (!isset($_GET['id'])) {
+    echo "Nieprawidłowe ID zamówienia.";
+    exit();
+}
+
+$orderID = $_GET['id'];
+
+$sql = "SELECT * FROM orderView WHERE zamowienie_id = '$orderID'";
+$result = mysqli_query($db, $sql);
+if (!$result || mysqli_num_rows($result) === 0) {
+    echo "Brak zamówienia o podanym ID.";
+    exit();
+}
+$order = mysqli_fetch_assoc($result);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //Tutaj dodać $zmienna = POST['nazwa'] do pól z widoku
+    $imie = $_POST['uzytkownik_imie'];
+    $nazwisko = $_POST['uzytkownik_nazwisko'];
+    $miasto = $_POST['miasto'];
+    $ulica = $_POST['ulica'];
+    $numer_domu = $_POST['numer_domu'];
+    //ZMIENIĆ WIDOK ABY PRZYJMOWAŁ NUMER MIESZKANIA ORAZ KOD POCZTOWY
+    
+
+
+    $update_sql = "UPDATE uzytkownik SET imie='$imie',  nazwisko='$nazwisko', email='$email', login='$login', haslo='$hashed_password' WHERE id='$userID'";
+    if (!mysqli_query($db, $update_sql)) {
+        echo "<p class='error'>Błąd zapisywania</p>";
+    } else {
+        header("Location: adminPanel.php");
+        exit();
+    }
+}
+?>
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sklep Ogrodniczy</title>
+    <link rel="stylesheet" href="../style/adminstyl.css">
+</head>
+
+<body>
+    <header>
+        <a href="../index.php">
+            <h1 class="noMargin">Sklep ogrodniczy</h1>
+        </a>
+        <div class="buttonContainer">
+            <a href="../admin/adminPanel.php">
+                <button class="iconButton">
+                    <img src="../icons/back.svg" alt="Index" style="width:48px; height:48px; vertical-align:middle;">
+                </button>
+            </a>
+        </div>
+    </header>
+    <main>
+        <div class="center">
+            <form method="post" class="adminForm">
+                <h1 class="noMargin">Modyfikuj użytkownika</h1>
+                <label>Imie<br>
+                    <input type="text" name="imie" value="<?php echo $user['imie']; ?>" required>
+                </label>
+
+                <label>Nazwisko<br>
+                    <input type="text" name="nazwisko" value="<?php echo $user['nazwisko']; ?>" required>
+                </label>
+
+                <label>Email<br>
+                    <input type="email" name="email" value="<?php echo $user['email']; ?>" required>
+                </label>
+
+                <label>Login<br>
+                    <input type="text" name="login" value="<?php echo $user['login']; ?>" required>
+                </label>
+                <label>Hasło<br />
+                    <input type="password" name="haslo" placeholder="Nowe hasło (opcjonalne)" autocomplete="new-password">
+                </label>
+                <button type="submit" style="margin-top: 5px;">Zapisz zmiany</button>
+                <a href="adminPanel.php"><button type="button" style="margin-top: 5px;">Anuluj</button></a>
+            </form>
+        </div>
+    </main>
+    <footer>
+        Autorzy: <b>Ryszard Osiński</b>, <b>Mirosław Karpowicz</b>, <b>Szymon Linek</b>, <b>Krystian Kotowski</b>
+    </footer>
+</body>
+
+</html>

@@ -6,28 +6,18 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 }
 require '../db.php';
 
-$sql = "SELECT 
-  z.id AS zamowienie_id,
-  z.data_czas_zamowienia,
-  z.data_czas_realizacji,
-  z.status,
-  z.suma,
-  z.platnosc,
-  z.uwagi,
-  z.uzytkownik_id,
-  z.adres_id,
-  z.kurier_id,
-  u.imie AS uzytkownik_imie,
-  u.nazwisko AS uzytkownik_nazwisko,
-  a.miasto,
-  a.ulica,
-  a.numer_domu,
-  p.imie AS kurier_imie,
-  p.nazwisko AS kurier_nazwisko
-FROM zamowienie z
-LEFT JOIN uzytkownik u ON z.uzytkownik_id = u.id
-LEFT JOIN adres a ON z.adres_id = a.id
-LEFT JOIN pracownik p ON z.kurier_id = p.id";
+$sql = "SELECT * FROM orderView";
+//ZMIENIĆ WIDOK ABY PRZYJMOWAŁ NUMER MIESZKANIA ORAZ KOD POCZTOWY
+// create view orderView AS 
+//SELECT z.id AS zamowienie_id, z.data_czas_zamowienia, z.data_czas_realizacji, z.status, z.suma, z.platnosc, z.uwagi, z.uzytkownik_id, z.adres_id, z.kurier_id, 
+// u.imie AS uzytkownik_imie, u.nazwisko AS uzytkownik_nazwisko, 
+// a.miasto, a.ulica, a.numer_domu, 
+// p.imie AS kurier_imie, p.nazwisko AS kurier_nazwisko 
+// FROM zamowienie z
+// LEFT JOIN uzytkownik u 
+// ON z.uzytkownik_id = u.id LEFT JOIN adres a
+// ON z.adres_id = a.id LEFT JOIN pracownik p
+// ON z.kurier_id = p.id;
 
 $result = mysqli_query($db, $sql);
 if (!$result) {
@@ -52,14 +42,9 @@ if (!$result) {
             <h1 class="noMargin">Sklep ogrodniczy</h1>
         </a>
         <div class="buttonContainer">
-            <a href="../index.php">
+            <a href="./adminPanel.php">
                 <button class="iconButton">
-                    <img src="../icons/close.svg" alt="Index" style="width:48px; height:48px; vertical-align:middle;">
-                </button>
-            </a>
-            <a href="../user/logout.php" >
-                <button class="iconButton">
-                    <img src="../icons/logout.svg" alt="Konto" style="width:48px; height:48px; vertical-align:middle;">
+                    <img src="../icons/back.svg" alt="Back" style="width:48px; height:48px; vertical-align:middle;">
                 </button>
             </a>
         </div>
