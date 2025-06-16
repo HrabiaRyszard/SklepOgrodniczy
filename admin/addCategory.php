@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="name">Nazwa kategorii:</label>
                 <input type="text" id="name" name="name" required>
 
-                <button type="submit">Dodaj kategorię</button>
+                <button type="submit" style="margin: 7px;">Dodaj kategorię</button>
             </form>
         </div>
     </main>

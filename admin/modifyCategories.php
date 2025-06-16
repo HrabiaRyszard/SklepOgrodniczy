@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 <input type="text" id="name" name="name" value="<?php echo $nazwa ?>" required>
                 <input type="hidden" id="id" name="id" value="<?php echo $id ?>">
 
-                <button type="submit">Modyfikuj kategorię</button>
+                <button type="submit" style="margin: 7px;">Modyfikuj kategorię</button>
             </form>
         </div>
     </main>

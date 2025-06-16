@@ -100,7 +100,7 @@ $images = glob('../images/*.jpg');
                         ?>
                     </select>
                 </label>
-                <button type="submit">Zapisz zmiany</button>
+                <button type="submit" style="margin-top: 5px;">Zapisz zmiany</button>
                 <a href="adminPanel.php"><button type="button">Anuluj</button></a>
             </form>
         </div>

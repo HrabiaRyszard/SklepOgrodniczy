@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 </list>
 
-                <button type="submit">Dodaj produkt</button>
+                <button type="submit" style="margin: 20px;">Dodaj produkt</button>
             </form>
         </div>
     </main>
