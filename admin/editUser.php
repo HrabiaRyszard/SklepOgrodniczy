@@ -119,10 +119,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="text" name="login" value="<?php echo $user['login']; ?>" required>
                 </label>
                 <label>Hasło<br />
-                    <input type="password" name="haslo" placeholder="Wprowadź nowe hasło (pozostaw puste, aby nie zmieniać)" autocomplete="new-password">
+                    <input type="password" name="haslo" placeholder="Nowe hasło (opcjonalne)" autocomplete="new-password">
                 </label>
                 <button type="submit" style="margin-top: 5px;">Zapisz zmiany</button>
-                <a href="adminPanel.php"><button type="button">Anuluj</button></a>
+                <a href="adminPanel.php"><button type="button" style="margin-top: 5px;">Anuluj</button></a>
             </form>
         </div>
     </main>
