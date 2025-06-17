@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Cze 08, 2025 at 11:02 PM
+-- Generation Time: Cze 17, 2025 at 11:23 PM
 -- Wersja serwera: 10.4.32-MariaDB
 -- Wersja PHP: 8.2.12
 
@@ -34,7 +34,7 @@ CREATE TABLE `adres` (
   `ulica` text NOT NULL,
   `numer_domu` text NOT NULL,
   `numer_mieszkania` text NOT NULL,
-  `kod_pocztowy` int(6) NOT NULL,
+  `kod_pocztowy` varchar(6) NOT NULL,
   `uzytkownik_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -43,7 +43,7 @@ CREATE TABLE `adres` (
 --
 
 INSERT INTO `adres` (`id`, `panstwo`, `miasto`, `ulica`, `numer_domu`, `numer_mieszkania`, `kod_pocztowy`, `uzytkownik_id`) VALUES
-(1, 'Polska', 'Warszawa', 'Lipowa', '12', '3A', 12345, 1);
+(1, 'Polska', 'Warszawa', 'Jaśminowa', '68', '23', '05-247', 9);
 
 -- --------------------------------------------------------
 
@@ -87,6 +87,35 @@ CREATE TABLE `mail` (
 -- --------------------------------------------------------
 
 --
+-- Zastąpiona struktura widoku `orderview`
+-- (See below for the actual view)
+--
+CREATE TABLE `orderview` (
+`zamowienie_id` int(11)
+,`data_czas_zamowienia` datetime
+,`data_czas_realizacji` datetime
+,`status` enum('przyjęte','spakowane','dostarczone')
+,`suma` decimal(10,2)
+,`platnosc` enum('blik','przelew','gotówka')
+,`uwagi` text
+,`uzytkownik_id` int(11)
+,`adres_id` int(11)
+,`kurier_id` int(11)
+,`uzytkownik_imie` text
+,`uzytkownik_nazwisko` text
+,`email` text
+,`miasto` text
+,`ulica` text
+,`numer_domu` text
+,`numer_mieszkania` text
+,`kod_pocztowy` varchar(6)
+,`kurier_imie` text
+,`kurier_nazwisko` text
+);
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `pracownik`
 --
 
@@ -109,7 +138,9 @@ CREATE TABLE `pracownik` (
 
 INSERT INTO `pracownik` (`id`, `imie`, `nazwisko`, `email`, `telefon`, `rola`, `data_zatrudnienia`, `login`, `haslo`, `placa`) VALUES
 (2, 'Andrzej', 'Nowak', 'a.nowak@gmail.com', '123456789', 'admin', '2022-04-05', 'anowak', '$2y$10$qo/81GzCvtSkIr0Iu..Gqeg7UxaZ.ZGCcZN6ElgO6DhTWtEHjHD3W', 8000.00),
-(3, 'Maks', 'Wafel', 'maks.wafel@gmail.com', '', 'admin', '0000-00-00', 'makswafel', '$2y$10$LuuGFBMV/Z6RxhAFFoNpEOq9C2hHh4zZRjvUa4pxDHf3EqtkkMmni', 0.00);
+(4, 'Maks', 'Wafel', 'makswafel@gmail.com', '', 'kurier', '0000-00-00', 'makswafel', '$2y$10$KmMk/nlY2z4Ez3V2sE5AP./PfU9tt5BoOIVJc1FZNHzuU.hvIXu1.', 10000.00),
+(5, 'Adam', 'Kok', 'Adam.kok@gmail.com', '9439084312', 'kurier', '2025-04-01', 'adamkok', '', 6500.00),
+(6, 'Jan', 'Postman', 'jan.postman@gmail.com', '83275089', 'kurier', '2025-02-04', 'janpost', '', 6500.00);
 
 -- --------------------------------------------------------
 
@@ -151,8 +182,7 @@ INSERT INTO `produkt` (`id`, `nazwa`, `cena`, `opis`, `url_zdjecia`, `kategoria_
 (17, 'Ławka drewniana', 599.00, 'Ławka do ogrodu lub na taras', 'lawka.jpg', 6, 8),
 (18, 'Pergola metalowa', 349.00, 'Stelaż do pnączy', 'pergola.jpg', 6, 10),
 (19, 'Konewka metalowa', 32.90, 'Tradycyjna konewka', 'konewka.jpg', 1, 30),
-(20, 'Ziemia uniwersalna 20L', 14.90, 'Do większości roślin ogrodowych', 'ziemia.jpg', 5, 70),
-(21, 'GGGs', 30.00, 'hehe', 'mszyce.jpg', 4, 2);
+(20, 'Ziemia uniwersalna 20L', 14.90, 'Do większości roślin ogrodowych', 'ziemia.jpg', 5, 70);
 
 -- --------------------------------------------------------
 
@@ -173,16 +203,37 @@ CREATE TABLE `szczegoly_zamowienia` (
 --
 
 INSERT INTO `szczegoly_zamowienia` (`id`, `produkt_id`, `zamowienie_id`, `ilosc_produktu`, `suma`) VALUES
-(1, 19, 1, 1, 299.00),
-(2, 14, 1, 1, 39.99),
-(3, 1, 1, 1, 49.99),
-(4, 5, 2, 1, 59.90),
-(5, 16, 3, 1, 1299.00),
-(6, 4, 3, 1, 499.00),
-(7, 18, 4, 1, 149.99),
-(8, 8, 5, 1, 89.90),
-(9, 9, 5, 1, 29.00),
-(10, 19, 5, 2, 100.00);
+(11, 4, 7, 1, 25.00),
+(12, 4, 8, 1, 25.00),
+(13, 2, 9, 1, 45.50),
+(14, 3, 9, 3, 179.70),
+(15, 4, 9, 1, 25.00),
+(16, 5, 10, 3, 54.00),
+(17, 11, 11, 1, 29.90),
+(18, 4, 12, 1, 25.00),
+(19, 2, 13, 1, 45.50),
+(20, 5, 13, 1, 18.00),
+(21, 7, 13, 2, 9.98),
+(22, 10, 13, 1, 7.99),
+(23, 3, 14, 1, 59.90),
+(24, 5, 15, 1, 18.00),
+(25, 5, 16, 1, 18.00),
+(28, 4, 18, 1, 25.00),
+(29, 5, 19, 1, 18.00),
+(30, 2, 22, 1, 45.50),
+(31, 10, 22, 1, 7.99),
+(32, 5, 24, 1, 18.00),
+(33, 7, 25, 1, 4.99),
+(34, 9, 26, 1, 6.50),
+(35, 5, 27, 1, 18.00),
+(36, 1, 28, 1, 89.99),
+(37, 2, 28, 2, 91.00),
+(38, 3, 28, 1, 59.90),
+(39, 4, 28, 2, 50.00),
+(40, 9, 28, 1, 6.50),
+(41, 15, 28, 1, 19.50),
+(42, 9, 29, 8, 52.00),
+(43, 19, 29, 1, 32.90);
 
 -- --------------------------------------------------------
 
@@ -204,8 +255,11 @@ CREATE TABLE `uzytkownik` (
 --
 
 INSERT INTO `uzytkownik` (`id`, `imie`, `nazwisko`, `email`, `login`, `haslo`) VALUES
-(1, 'Anna', 'Kowalska', 'anna.kowalska@example.com', 'ankowa', '$2y$10$qo/81GzCvtSkIr0Iu..Gqeg7UxaZ.ZGCcZN6ElgO6DhTWtEHjHD3W'),
-(2, 'Arek', 'Bomba', 'arek.bomba@gmail.com', 'arekbomba', '$2y$10$qo/81GzCvtSkIr0Iu..Gqeg7UxaZ.ZGCcZN6ElgO6DhTWtEHjHD3W');
+(4, 'arek', 'bomba', 'arek.bomba@gmail.com', 'arekbomba', '$2y$10$eYkDGuSWQ/zoLKX3KA0FHOwCRnlik1jznFNtevD.lN/NxJ/Cv/YjO'),
+(5, 'Jan', 'Bolonka', 'jan.b@gmail.com', 'janb', '$2y$10$X5tKAiVEF0yHHKFH4YxeKuhzANEqeJI0BdvfQ5RTJyARfe.6lDtqi'),
+(7, 'Jan', 'Skor', 'jans@gmail.com', '', ''),
+(8, 'Jan', 'Olcha', 'Jan@gmail.com', '', ''),
+(9, 'Marian', 'Dzwonek', 'marian.dzwonek@gmail.com', 'mdzwonek', '$2y$10$oUEyUR3/PcwK8u8Yz1ECe.xQdW.kzIhnodGVHUNX566c2uK.Y6FQm');
 
 -- --------------------------------------------------------
 
@@ -231,11 +285,37 @@ CREATE TABLE `zamowienie` (
 --
 
 INSERT INTO `zamowienie` (`id`, `uzytkownik_id`, `adres_id`, `platnosc`, `status`, `kurier_id`, `data_czas_zamowienia`, `data_czas_realizacji`, `suma`, `uwagi`) VALUES
-(1, 1, 1, 'blik', 'przyjęte', 2, '2025-05-25 10:00:00', NULL, 408.99, 'Dostarczyć po 16:00'),
-(2, 2, 1, 'gotówka', 'spakowane', 2, '2025-05-26 11:15:00', NULL, 59.90, ''),
-(3, 2, 1, 'przelew', 'dostarczone', 2, '2025-05-20 09:45:00', '2025-05-22 14:00:00', 1799.00, ''),
-(4, 1, 1, 'gotówka', 'spakowane', 2, '2025-05-24 17:30:00', NULL, 149.99, ''),
-(5, 1, 1, 'blik', 'spakowane', 2, '2025-05-23 08:25:00', NULL, 218.90, '');
+(7, 4, 11, 'gotówka', 'przyjęte', 4, '2025-06-09 16:53:00', '0000-00-00 00:00:00', 25.00, 'Brak uwag'),
+(8, 4, 4, '', 'dostarczone', 4, '2025-06-09 16:55:00', '2025-06-10 19:26:00', 25.00, 'Brak uwag'),
+(9, 4, 1, 'gotówka', 'przyjęte', 4, '2025-06-09 17:06:13', NULL, 250.20, 'Brak uwag'),
+(10, 4, 12, 'gotówka', 'przyjęte', 4, '2025-06-09 19:18:22', NULL, 54.00, 'Brak uwag'),
+(11, 4, 4, '', 'przyjęte', 6, '2025-06-15 16:42:00', '0000-00-00 00:00:00', 29.90, 'Brak uwag'),
+(12, 4, 1, 'gotówka', 'przyjęte', 4, '2025-06-15 16:58:45', NULL, 25.00, 'Brak uwag'),
+(13, 4, 1, 'gotówka', 'przyjęte', 4, '2025-06-15 17:35:31', NULL, 81.47, 'Brak uwag'),
+(14, 4, 4, 'gotówka', 'przyjęte', 4, '2025-06-15 17:41:33', NULL, 59.90, 'Brak uwag'),
+(15, 4, 4, 'gotówka', 'przyjęte', 4, '2025-06-15 17:48:01', NULL, 18.00, 'Brak uwag'),
+(16, 4, 4, 'gotówka', 'przyjęte', NULL, '2025-06-15 17:56:07', NULL, 18.00, 'Brak uwag'),
+(18, 5, 11, 'gotówka', 'przyjęte', NULL, '2025-06-15 18:27:29', NULL, 25.00, ''),
+(19, 5, 11, 'gotówka', 'przyjęte', NULL, '2025-06-15 18:29:21', NULL, 18.00, ''),
+(20, 5, 11, 'gotówka', 'przyjęte', NULL, '2025-06-15 18:32:57', NULL, 0.00, ''),
+(21, 5, 11, 'gotówka', 'przyjęte', 6, '2025-06-15 18:33:04', NULL, 0.00, ''),
+(22, 5, 11, 'gotówka', 'przyjęte', NULL, '2025-06-15 18:33:39', NULL, 53.49, ''),
+(23, 5, 11, 'gotówka', 'przyjęte', NULL, '2025-06-15 18:34:07', NULL, 0.00, ''),
+(24, 5, 11, 'gotówka', 'przyjęte', NULL, '2025-06-15 18:34:36', NULL, 18.00, ''),
+(25, 7, 12, 'gotówka', 'przyjęte', NULL, '2025-06-15 18:37:07', NULL, 4.99, ''),
+(26, 5, 11, 'gotówka', 'przyjęte', NULL, '2025-06-15 18:58:49', NULL, 6.50, ''),
+(27, 8, 13, 'gotówka', 'przyjęte', NULL, '2025-06-15 19:00:19', NULL, 18.00, ''),
+(28, 9, 1, 'gotówka', 'przyjęte', NULL, '2025-06-17 19:53:05', NULL, 316.89, ''),
+(29, 9, 1, 'gotówka', 'przyjęte', NULL, '2025-06-17 20:16:25', NULL, 84.90, '');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura widoku `orderview`
+--
+DROP TABLE IF EXISTS `orderview`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `orderview`  AS SELECT `z`.`id` AS `zamowienie_id`, `z`.`data_czas_zamowienia` AS `data_czas_zamowienia`, `z`.`data_czas_realizacji` AS `data_czas_realizacji`, `z`.`status` AS `status`, `z`.`suma` AS `suma`, `z`.`platnosc` AS `platnosc`, `z`.`uwagi` AS `uwagi`, `z`.`uzytkownik_id` AS `uzytkownik_id`, `z`.`adres_id` AS `adres_id`, `z`.`kurier_id` AS `kurier_id`, `u`.`imie` AS `uzytkownik_imie`, `u`.`nazwisko` AS `uzytkownik_nazwisko`, `u`.`email` AS `email`, `a`.`miasto` AS `miasto`, `a`.`ulica` AS `ulica`, `a`.`numer_domu` AS `numer_domu`, `a`.`numer_mieszkania` AS `numer_mieszkania`, `a`.`kod_pocztowy` AS `kod_pocztowy`, `p`.`imie` AS `kurier_imie`, `p`.`nazwisko` AS `kurier_nazwisko` FROM (((`zamowienie` `z` left join `uzytkownik` `u` on(`z`.`uzytkownik_id` = `u`.`id`)) left join `adres` `a` on(`z`.`adres_id` = `a`.`id`)) left join `pracownik` `p` on(`z`.`kurier_id` = `p`.`id`)) ;
 
 --
 -- Indeksy dla zrzutów tabel
@@ -324,7 +404,7 @@ ALTER TABLE `mail`
 -- AUTO_INCREMENT for table `pracownik`
 --
 ALTER TABLE `pracownik`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `produkt`
@@ -336,23 +416,29 @@ ALTER TABLE `produkt`
 -- AUTO_INCREMENT for table `szczegoly_zamowienia`
 --
 ALTER TABLE `szczegoly_zamowienia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `uzytkownik`
 --
 ALTER TABLE `uzytkownik`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `zamowienie`
 --
 ALTER TABLE `zamowienie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `adres`
+--
+ALTER TABLE `adres`
+  ADD CONSTRAINT `fk_adres_uzytkownik` FOREIGN KEY (`uzytkownik_id`) REFERENCES `uzytkownik` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `mail`
@@ -370,7 +456,7 @@ ALTER TABLE `produkt`
 -- Constraints for table `szczegoly_zamowienia`
 --
 ALTER TABLE `szczegoly_zamowienia`
-  ADD CONSTRAINT `fk_szczegoly_zamowienia_produkt` FOREIGN KEY (`produkt_id`) REFERENCES `produkt` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_szczegoly_zamowienia_produkt` FOREIGN KEY (`produkt_id`) REFERENCES `produkt` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_szczegoly_zamowienia_zamowienie` FOREIGN KEY (`zamowienie_id`) REFERENCES `zamowienie` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
