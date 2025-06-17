@@ -30,16 +30,29 @@
     <main>
         <div class="center">
             <div class="note">
-                <h2 class="noMargin">Witamy w naszym Sklepie Ogrodniczym!</h2>
+                <h2 class="noMargin" style="width: 100%; margin: 20px;">Witamy w naszym Sklepie Ogrodniczym!</h2>
                 <p>Z pasji do ogrodnictwa stworzyliśmy miejsce, w którym każdy miłośnik zieleni znajdzie coś dla siebie. Oferujemy szeroki wybór roślin, nasion, narzędzi i akcesoriów ogrodniczych najwyższej jakości. Niezależnie od tego, czy dopiero zaczynasz swoją przygodę z ogrodem, czy jesteś doświadczonym ogrodnikiem – jesteśmy tu, aby Ci pomóc!</p>
-                <div>
-                    <h2>Polecany przez nas produkt:</h2>
-                        <div class="recomendedProduct">
-                            <img src="images/konewka.jpg" alt="konewka">
-                            <h3>Konewka metalowa</h3>
-                            <a href="details.php?id=19"><button>Sprawź →</button></a>
-                        </div>
-                </div>
+            </div>
+            <h2 style="margin-right:20px;"></h2>
+            <div class="featured-products" style="display:flex;flex-wrap:wrap;gap:24px;justify-content:center;">
+                <?php
+                require './db.php';
+                $featured = [];
+                $res = mysqli_query($db, "SELECT * FROM produkt ORDER BY RAND() LIMIT 3");
+                while ($row = mysqli_fetch_assoc($res)) {
+                    $featured[] = $row;
+                }
+                foreach ($featured as $product): ?>
+                    <div class="product-card" style="background:#fff;border-radius:8px;box-shadow:0 2px 8px #0001;padding:16px;width:220px;text-align:center; margin-right:50px;">
+                        <a href="details.php?id=<?= $product['id'] ?>">
+                            <img src="images/<?= $product['url_zdjecia'] ? $product['url_zdjecia'] : 'placeholder.png' ?>" alt="<?= htmlspecialchars($product['nazwa']) ?>" style="max-width:100%;height:140px;object-fit:cover;border-radius:4px;">
+                        </a>
+                        <h3 style="margin:10px 0 5px 0; font-size:1.1em;"><?= htmlspecialchars($product['nazwa']) ?></h3>
+                        <div style="color:#555; font-size:0.95em; min-height:40px;"><?= mb_strimwidth($product['opis'], 0, 60, '...') ?></div>
+                        <div style="font-weight:bold; color:#2a7c2a; margin:8px 0;"><?= $product['cena'] ?> zł</div>
+                        <a href="details.php?id=<?= $product['id'] ?>"><button style="width:100%;">Zobacz szczegóły</button></a>
+                    </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </main>
