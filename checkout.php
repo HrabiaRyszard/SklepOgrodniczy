@@ -156,6 +156,7 @@ if (isset($_SESSION['userID'])) {
     $addressPrefill['nazwisko'] = $user['nazwisko'] ?? '';
     $addressPrefill['ulica'] = $adres['ulica'] ?? '';
     $addressPrefill['numer_domu'] = $adres['numer_domu'] ?? '';
+    $addressPrefill['numer_mieszkania'] = $adres['numer_mieszkania'] ?? '';
     $addressPrefill['miasto'] = $adres['miasto'] ?? '';
     $addressPrefill['kod_pocztowy'] = $adres['kod_pocztowy'] ?? '';
 }
