@@ -8,6 +8,12 @@ require '../db.php';
 
 $sql = "SELECT id, imie, nazwisko, email FROM uzytkownik";
 $result = mysqli_query($db, $sql);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_user'], $_POST['user_id'])) {
+    $user_id = $_POST['user_id'];
+    mysqli_query($db, "DELETE FROM uzytkownik WHERE id = $user_id");
+    echo "<script>window.location.href=window.location.href;</script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +60,14 @@ $result = mysqli_query($db, $sql);
                             <td><?= $user['nazwisko'] ?></td>
                             <td><?= $user['email'] ?></td>
                             <td>
-                                <a href="editUser.php?id=<?= $user['id'] ?>"><button class='modifyBtn'>Modyfikuj</button></a>
+                                <div style="display: flex; flex-direction: column; gap: 5px;">
+                                    <a href="editUser.php?id=<?= $user['id'] ?>"><button class='modifyBtn'>Modyfikuj</button></a>
+                                    <form method="post" style="margin:0;" onsubmit="return confirm('Czy na pewno chcesz usunąć tego użytkownika?');">
+                                        <input type="hidden" name="delete_user" value="1">
+                                        <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
+                                        <button type="submit" class="modifyBtn" style="background:#c00;color:#fff;">Usuń użytkownika</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     <?php endwhile; ?>

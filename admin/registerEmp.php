@@ -1,5 +1,11 @@
 <?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    header("Location: ../login.php");
+    exit();
+}
 require '../db.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imie = $_POST['imie'];
     $nazwisko = $_POST['nazwisko'];
@@ -12,13 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $placa = $_POST['placa'];
 
     $sql = "INSERT INTO pracownik (imie, nazwisko, email, telefon, rola, data_zatrudnienia, login, haslo, placa) VALUES ('$imie', '$nazwisko', '$email', '$telefon', '$rola', '$data_zatrudnienia', '$login', '$haslo', '$placa')";
-
-
-    if (mysqli_query($db, $sql)) {
-        echo "Nowy pracownik został dodany pomyślnie.";
-    } else {
-        echo "Błąd: " . mysqli_error($db);
-    }
 
     mysqli_close($db);
 }
@@ -48,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
     <main>
         <div class="center">
-        <form action="addUser.php" method="post" class="adminForm">
+        <form action="#" method="post" class="adminForm">
             <h1 class="noMargin">Zarejestruj pracownika</h1>
             <label for="imie">Imię:</label>
             <input type="text" id="imie" name="imie" required>
@@ -61,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="rola">Rola:</label>
             <select id="rola" name="rola" required>
                 <option value="admin">Admin</option>
-                <option value="pracownik">Pracownik</option>
+                <option value="kurier">Kurier</option>
             </select>
             <label for="data_zatrudnienia">Data zatrudnienia:</label>
             <input type="date" id="data_zatrudnienia" name="data_zatrudnienia" required>
