@@ -7,6 +7,12 @@ Ryszard => Frontend
 
 Mirek => Baza
 
+Jak uruchomić:
 
-haslo -- sklep123
-baza -- miraslau-karpovich_sklep
+Importuj bazę danych, nazwij ją sklep.
+
+Istniejący użytkownicy:
+
+User: mdzwonek; Password: mdzwonuś
+
+Admin: makswafel; Password: wafel
