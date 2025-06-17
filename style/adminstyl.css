@@ -161,3 +161,19 @@ td,th{
     font-family: 'Segoe UI', sans-serif;
     font-size: 18px;
 }
+.orderTable{
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.orderTable td, .orderTable th{
+    box-shadow: #143a00 0px 0px 1px;
+    border: 2px solid #00093a;
+    padding: 10px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+}
+.orderTable input{
+    max-width: 150px;
+}

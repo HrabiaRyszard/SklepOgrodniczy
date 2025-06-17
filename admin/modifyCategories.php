@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
             <h1 class="noMargin">Sklep ogrodniczy</h1>
         </a>
         <div class="buttonContainer">
-            <a href="../admin/manageCategories.php">
+            <a href="../admin/adminPanel.php">
                 <button class="iconButton">
                     <img src="../icons/back.svg" alt="Index" style="width:48px; height:48px; vertical-align:middle;">
                 </button>

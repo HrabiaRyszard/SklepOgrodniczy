@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div>
             <form method="post" >
                 <h1 class="noMargin">Podgląd zamówienia</h1>
-                <table>
+                <table class="orderTable">
                 <thead>
                     <tr>
                         <th>ID zamówienia</th>
@@ -134,7 +134,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         echo "<option value='{$kurier['id']}' $selected>{$kurier['imie']} {$kurier['nazwisko']}</option>";
                                     }
                                     ?>
-                                </select>
                             </td>
                             <td><input type="datetime-local" name="data_czas_zamowienia" value="<?= date('Y-m-d\TH:i', strtotime($order['data_czas_zamowienia'])) ?>" required /></td>
                             <td><input type="datetime-local" name="data_czas_realizacji" value="<?= $order['data_czas_realizacji'] ? date('Y-m-d\TH:i', strtotime($order['data_czas_realizacji'])) : '' ?>" /></td>    

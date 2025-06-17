@@ -6,14 +6,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 require '../db.php';
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_product'], $_POST['product_id'])) {
-    $product_id = intval($_POST['product_id']);
-    mysqli_query($db, "DELETE FROM produkt WHERE id = $product_id");
-
-    echo "<script>window.location.href=window.location.href;</script>";
-}
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -62,16 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_product'], $_P
                 echo "<td>" . $row['opis'] . "</td>";
                 echo "<td>" . $row['cena'] . "</td>";
                 echo "<td>" . $row['kategoria_nazwa'] . "</td>";
-                echo "<td>";
-                echo "<div style='display: flex; flex-direction: column; gap: 5px;'>";
-                echo "<a href='modifyProduct.php?id=" . $row['id'] . "'><button class='modifyBtn'>Modyfikuj</button></a>";
-                echo "<form method='post' style='margin:0;' onsubmit=\"return confirm('Czy na pewno chcesz usunąć ten produkt?');\">";
-                echo "<input type='hidden' name='delete_product' value='1'>";
-                echo "<input type='hidden' name='product_id' value='" . $row['id'] . "'>";
-                echo "<button type='submit' class='modifyBtn' style='background:#c00;color:#fff;'>Usuń produkt</button>";
-                echo "</form>";
-                echo "</div>";
-                echo "</td>";
+                echo "<td><a href='modifyProduct.php?id=" . $row['id'] . "'><button class='modifyBtn'>Modyfikuj</button></a></td>";
                 echo "</tr>";
             }
             ?>
