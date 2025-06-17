@@ -47,18 +47,21 @@ $product = mysqli_fetch_assoc($result);
         </div>
     </header>
     <main>
-        <div class="details">
-            <div class="imagesView"><img src="./images/<?php echo $product['url_zdjecia'] ? $product['url_zdjecia'] : 'placeholder.png'; ?>" alt="zdjęcie"></div>
-            <div class="description">
-                <p><strong>Opis:</strong> <?php echo $product['opis']; ?></p>
-                <p><strong>Cena:</strong> <?php echo $product['cena']; ?> zł</p>
-                <p><strong>Ilość:</strong> <?php echo $product['ilosc']; ?></p>
-            </div>
-                <div class="productName"><h2><?php echo $product['nazwa']; ?></h2></div>
-                <div class="buyButton">
-                    <button onclick="addToCart(<?php echo $product['id']; ?>); return false;">Dodaj do Koszyka</button>
+        <div class="center">
+            <div class="details">
+                <div class="imagesView"><img src="./images/<?php echo $product['url_zdjecia'] ? $product['url_zdjecia'] : 'placeholder.png'; ?>" alt="zdjęcie"></div>
+                <div class="description">
+                    <p><strong>Opis:</strong> <?php echo $product['opis']; ?></p>
+                    <p><strong>Cena:</strong> <?php echo $product['cena']; ?> zł</p>
+                    <p><strong>Ilość:</strong> <?php echo $product['ilosc']; ?></p>
                 </div>
+                    <div class="productName"><h2><?php echo $product['nazwa']; ?></h2></div>
+                    <div class="buyButton">
+                        <button onclick="addToCart(<?php echo $product['id']; ?>); return false;">Dodaj do Koszyka</button>
+                    </div>
+            </div>
         </div>
+        
     </main>
     <footer>
         <div class="noMargin">

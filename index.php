@@ -28,10 +28,19 @@
         </div>
     </header>
     <main>
-        <div>
-            <h1>Coś tu trzeba dać</h1>
-            <h2>Może jakiś polecany produkt</h2>
-            <h3>Lub coś takiego</h3>
+        <div class="center">
+            <div class="note">
+                <h2 class="noMargin">Witamy w naszym Sklepie Ogrodniczym!</h2>
+                <p>Z pasji do ogrodnictwa stworzyliśmy miejsce, w którym każdy miłośnik zieleni znajdzie coś dla siebie. Oferujemy szeroki wybór roślin, nasion, narzędzi i akcesoriów ogrodniczych najwyższej jakości. Niezależnie od tego, czy dopiero zaczynasz swoją przygodę z ogrodem, czy jesteś doświadczonym ogrodnikiem – jesteśmy tu, aby Ci pomóc!</p>
+                <div>
+                    <h2>Polecany przez nas produkt:</h2>
+                        <div class="recomendedProduct">
+                            <img src="images/konewka.jpg" alt="konewka">
+                            <h3>Konewka metalowa</h3>
+                            <a href="details.php?id=19"><button>Sprawź →</button></a>
+                        </div>
+                </div>
+            </div>
         </div>
     </main>
     <footer>

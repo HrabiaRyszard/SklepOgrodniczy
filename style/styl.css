@@ -39,6 +39,7 @@ a{
     text-decoration: none;
 }
 footer{
+    color: white;
     clear: both;
     position: relative;
     height: 7.5vh;
@@ -94,7 +95,10 @@ main{
     background-color: yellow;
 }
 .details{
-    background-color: #cfcfcf;
+    height: 50vh;
+    width: 50vw;
+    border: 2px solid black;
+    background-color: black;
     display: grid; 
     grid-template-columns: 1.4fr 0.6fr; 
     grid-template-rows: 4fr 0.6fr; 
@@ -105,14 +109,17 @@ main{
     justify-content: stretch; 
     align-content: stretch; 
     justify-items: stretch; 
-    align-items: stretch; 
+    align-items: stretch;
+    border-radius: 10px;
 }
 .description{
-    background-color: #cfcfcf;
-    height: 64.3vh;
+    border: 2px solid black;
+    background-color: #f1ffe2;
+    height: 39vh;
     font-size: large;
     line-height: 1.5;
     padding: 20px;
+    border-top-right-radius: 10px;
 }
 .buyButton>button{
     height: 100px;
@@ -130,16 +137,19 @@ main{
 }
 .imagesView{
     background-color: white;
+    border: 2px solid black;
+    border-top-left-radius: 10px;
 }
 .imagesView>img{
-    height: 650px;
-    padding: 20px;
+    height: 40vh;
 }
 .productName{
-    background-color: #cfcfcf;
+    border: 2px solid black;
+    background-color: #f1ffe2;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom-left-radius: 10px;
 }
 .productName>h2{
     font-size: 300%;
@@ -335,4 +345,52 @@ main{
 }
 .checkout-btn:disabled { 
     background: #ccc; 
+}
+.checkout-form div{
+    text-align: left;
+    width: 50%;
+    margin-left: 25%; 
+}
+.checkout-form>div>input{
+    width: 100%;
+    height: 23px;
+    font-weight: bolder;
+    color: black;
+    border: 2px solid black;
+    align-self: end;
+}
+.checkout-form>div>label{
+    background-color: #e0e0e0;
+}
+.note{
+    background-color: white;
+    width: 50vw;
+    min-height: 35vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    line-height: 2.5;
+    border-radius: 20px;
+    border: 4px solid black;
+}
+.note>p{
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    font-size: large;
+}
+.recomendedProduct>img{
+    height: 200px;
+    border:  solid black;
+}
+.recomendedProduct button{
+   display: inline-block;
+    padding: 12px 32px;
+    background: #336633;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 15px;
 }
