@@ -55,7 +55,7 @@ $images = glob('../images/*.jpg');
             <h1 class="noMargin">Sklep ogrodniczy</h1>
         </a>
         <div class="buttonContainer">
-            <a href="../admin/adminPanel.php">
+            <a href="../admin/manageProducts.php">
                 <button class="iconButton">
                     <img src="../icons/back.svg" alt="Index" style="width:48px; height:48px; vertical-align:middle;">
                 </button>
@@ -90,7 +90,7 @@ $images = glob('../images/*.jpg');
                 </label>
                 <label>Zdjęcie:<br />
                     <select id="image" name="image" required>
-                        <option value="">Brak zdjęcia</option>
+                        <option value=""><?php echo $produkt['url_zdjecia'] ?></option>
                         <?php
                         foreach ($images as $img) {
                             $filename = basename($img);

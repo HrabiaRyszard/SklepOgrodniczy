@@ -6,6 +6,12 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit();
 }
 require '../db.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_category'], $_POST['category_id'])) {
+    $category_id = intval($_POST['category_id']);
+    mysqli_query($db, "DELETE FROM kategoria WHERE id = $category_id");
+    echo "<script>window.location.href=window.location.href;</script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -40,15 +46,22 @@ require '../db.php';
                 </tr>
                 <?php
                 $sql = "SELECT * FROM kategoria order by nazwa";
-
                 $result = mysqli_query($db, $sql);
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>";
-                    echo "<td>" . $row['nazwa'] . "</td>";
-                    echo "<td><a href='modifyCategories.php?id=" . $row['id'] . "'><button class='modifyBtn'>Modyfikuj</button></a></td>";
-                    echo "</tr>";
-                }
-                ?>
+                while ($row = mysqli_fetch_assoc($result)) : ?>
+                    <tr>
+                        <td><?= htmlspecialchars($row['nazwa']) ?></td>
+                        <td style="text-align: center;">
+                            <div style="display: flex; flex-direction: row; gap: 5px; justify-content: center; align-items: center;">
+                                <a href="modifyCategories.php?id=<?= $row['id'] ?>"><button class='modifyBtn'>Modyfikuj</button></a>
+                                <form method="post" style="margin:0;" onsubmit="return confirm('Czy na pewno chcesz usunąć tę kategorię?');">
+                                    <input type="hidden" name="delete_category" value="1">
+                                    <input type="hidden" name="category_id" value="<?= $row['id'] ?>">
+                                    <button type="submit" class="modifyBtn" style="background:#c00;color:#fff;">Usuń kategorię</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
             </table>
         </div>
     </main>
