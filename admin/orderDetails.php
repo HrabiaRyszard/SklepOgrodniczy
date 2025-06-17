@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div>
             <form method="post" >
                 <h1 class="noMargin">Podgląd zamówienia</h1>
-                <table>
+                <table class="orderTable">
                 <thead>
                     <tr>
                         <th>ID zamówienia</th>
