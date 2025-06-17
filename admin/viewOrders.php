@@ -7,17 +7,16 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 require '../db.php';
 
 $sql = "SELECT * FROM orderView";
-//ZMIENIĆ WIDOK ABY PRZYJMOWAŁ NUMER MIESZKANIA ORAZ KOD POCZTOWY
-// create view orderView AS 
-//SELECT z.id AS zamowienie_id, z.data_czas_zamowienia, z.data_czas_realizacji, z.status, z.suma, z.platnosc, z.uwagi, z.uzytkownik_id, z.adres_id, z.kurier_id, 
-// u.imie AS uzytkownik_imie, u.nazwisko AS uzytkownik_nazwisko, 
-// a.miasto, a.ulica, a.numer_domu, 
-// p.imie AS kurier_imie, p.nazwisko AS kurier_nazwisko 
-// FROM zamowienie z
-// LEFT JOIN uzytkownik u 
-// ON z.uzytkownik_id = u.id LEFT JOIN adres a
-// ON z.adres_id = a.id LEFT JOIN pracownik p
-// ON z.kurier_id = p.id;
+//Kod do widoku zamówienia
+// SELECT z.id AS zamowienie_id, z.data_czas_zamowienia, z.data_czas_realizacji, z.status, z.suma, z.platnosc, z.uwagi, z.uzytkownik_id, z.adres_id, z.kurier_id, 
+//  u.imie AS uzytkownik_imie, u.nazwisko AS uzytkownik_nazwisko, u.email,
+// 	a.miasto, a.ulica, a.numer_domu, a.numer_mieszkania, a.kod_pocztowy,
+//  p.imie AS kurier_imie, p.nazwisko AS kurier_nazwisko 
+//  FROM zamowienie z
+//  LEFT JOIN uzytkownik u 
+//  ON z.uzytkownik_id = u.id LEFT JOIN adres a
+//  ON z.adres_id = a.id LEFT JOIN pracownik p
+//  ON z.kurier_id = p.id;
 
 $result = mysqli_query($db, $sql);
 if (!$result) {
