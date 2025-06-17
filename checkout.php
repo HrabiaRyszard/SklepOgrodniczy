@@ -220,16 +220,18 @@ if (isset($_SESSION['userID'])) {
                 </div>
             <?php elseif ($step == 2): ?>
                 <h2>KROK 1. ADRES WYSYŁKI</h2>
-                <form method="post">
+                <form method="post" class="checkout-form">
                     <input type="hidden" name="address" value="1">
-                    <label>Email</label><br><input type="email" name="email" required value="<?= htmlspecialchars($_SESSION['checkout_address']['email'] ?? $addressPrefill['email']) ?>"><br>
-                    <label>Imię</label><br><input type="text" name="imie" required value="<?= htmlspecialchars($_SESSION['checkout_address']['imie'] ?? $addressPrefill['imie']) ?>"><br>
-                    <label>Nazwisko</label><br><input type="text" name="nazwisko" required value="<?= htmlspecialchars($_SESSION['checkout_address']['nazwisko'] ?? $addressPrefill['nazwisko']) ?>"><br>
-                    <label>Ulica</label><br><input type="text" name="ulica" required value="<?= htmlspecialchars($_SESSION['checkout_address']['ulica'] ?? $addressPrefill['ulica']) ?>"><br>
-                    <label>Numer domu</label><br><input type="text" name="numer_domu" required value="<?= htmlspecialchars($_SESSION['checkout_address']['numer_domu'] ?? $addressPrefill['numer_domu']) ?>"><br>
-                    <label>Numer mieszkania</label><br><input type="text" name="numer_mieszkania" value="<?= htmlspecialchars($_SESSION['checkout_address']['numer_mieszkania'] ?? $addressPrefill['numer_mieszkania'] ?? '') ?>"><br>
-                    <label>Miasto</label><br><input type="text" name="miasto" required value="<?= htmlspecialchars($_SESSION['checkout_address']['miasto'] ?? $addressPrefill['miasto']) ?>"><br>
-                    <label>Kod pocztowy</label><br><input type="text" name="kod_pocztowy" required value="<?= htmlspecialchars($_SESSION['checkout_address']['kod_pocztowy'] ?? $addressPrefill['kod_pocztowy']) ?>"><br>
+                    <div>
+                        <label>Email</label><br><input type="email" name="email" required value="<?= htmlspecialchars($_SESSION['checkout_address']['email'] ?? $addressPrefill['email']) ?>"><br>
+                        <label>Imię</label><br><input type="text" name="imie" required value="<?= htmlspecialchars($_SESSION['checkout_address']['imie'] ?? $addressPrefill['imie']) ?>"><br>
+                        <label>Nazwisko</label><br><input type="text" name="nazwisko" required value="<?= htmlspecialchars($_SESSION['checkout_address']['nazwisko'] ?? $addressPrefill['nazwisko']) ?>"><br>
+                        <label>Ulica</label><br><input type="text" name="ulica" required value="<?= htmlspecialchars($_SESSION['checkout_address']['ulica'] ?? $addressPrefill['ulica']) ?>"><br>
+                        <label>Numer domu</label><br><input type="text" name="numer_domu" required value="<?= htmlspecialchars($_SESSION['checkout_address']['numer_domu'] ?? $addressPrefill['numer_domu']) ?>"><br>
+                        <label>Numer mieszkania</label><br><input type="text" name="numer_mieszkania" value="<?= htmlspecialchars($_SESSION['checkout_address']['numer_mieszkania'] ?? $addressPrefill['numer_mieszkania'] ?? '') ?>"><br>
+                        <label>Miasto</label><br><input type="text" name="miasto" required value="<?= htmlspecialchars($_SESSION['checkout_address']['miasto'] ?? $addressPrefill['miasto']) ?>"><br>
+                        <label>Kod pocztowy</label><br><input type="text" name="kod_pocztowy" required value="<?= htmlspecialchars($_SESSION['checkout_address']['kod_pocztowy'] ?? $addressPrefill['kod_pocztowy']) ?>"><br>
+                    </div>
                     <h2>KROK 2. METODA DOSTAWY</h2>
                     <input type="radio" name="dostawa" value="paleta" checked> 0,00 zł Paleta<br>
                     <input type="radio" name="dostawa" value="paleta_pobranie"> 0,00 zł Paleta Pobranie<br>
